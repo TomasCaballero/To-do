@@ -23,7 +23,7 @@ public class TaskController {
         return new ResponseEntity<>(savedTask, HttpStatus.CREATED);
     }
 
-    // OBTENER TAREA POR ID
+    // GET OBTENER TAREA POR ID
     @GetMapping("{id}")
     public ResponseEntity<TaskDto> getTaskById(@PathVariable("id") Long taskId){
         TaskDto task = taskService.getTaskById(taskId);
@@ -32,8 +32,15 @@ public class TaskController {
 
     // POST MODIFICAR DATOS DE USUARIO POR ID
     @PutMapping("{id}")
-    public ResponseEntity<TaskDto> updateUser(@PathVariable("id") Long taskId, @RequestBody TaskDto updateTask){
+    public ResponseEntity<TaskDto> updateTask(@PathVariable("id") Long taskId, @RequestBody TaskDto updateTask){
         TaskDto taskUpdated = taskService.updateTask(taskId, updateTask);
         return ResponseEntity.ok(updateTask);
+    }
+
+    // DELETE
+    @DeleteMapping("{id}")
+    public ResponseEntity<TaskDto> deleteTask(@PathVariable("id") Long taskId){
+        TaskDto deletedTask = taskService.deleteTask(taskId);
+        return ResponseEntity.ok(deletedTask);
     }
 }
