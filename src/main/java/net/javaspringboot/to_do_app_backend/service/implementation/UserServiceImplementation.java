@@ -44,4 +44,24 @@ public class UserServiceImplementation implements UserService {
 
         return usersDto;
     }
+
+    @Override
+    public UserDto updateUser(Long userId, UserDto updateUser) {
+        User userFind = userRepository.findById(userId)
+                .orElseThrow(() -> new ResourceNotFoundException("No existe usuario con ID: "+userId));
+
+        if(!userFind.getName().equals(updateUser.getName())){
+            userFind.setName(updateUser.getName());
+        }
+        if(!userFind.getEmail().equals(updateUser.getEmail())){
+            userFind.setEmail(updateUser.getEmail());
+        }
+        if(!userFind.getPassword().equals(updateUser.getPassword())){
+            userFind.setPassword(updateUser.getPassword());
+        }
+
+        User updatedUser = userRepository.save(userFind);
+
+        return UserMapper.mapToUserDto(updatedUser);
+    }
 }

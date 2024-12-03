@@ -3,6 +3,7 @@ package net.javaspringboot.to_do_app_backend.controller;
 
 import lombok.AllArgsConstructor;
 import net.javaspringboot.to_do_app_backend.dto.TaskDto;
+import net.javaspringboot.to_do_app_backend.dto.UserDto;
 import net.javaspringboot.to_do_app_backend.service.TaskService;
 import net.javaspringboot.to_do_app_backend.service.implementation.TaskServiceImplementation;
 import org.springframework.http.HttpStatus;
@@ -27,5 +28,12 @@ public class TaskController {
     public ResponseEntity<TaskDto> getTaskById(@PathVariable("id") Long taskId){
         TaskDto task = taskService.getTaskById(taskId);
         return ResponseEntity.ok(task);
+    }
+
+    // POST MODIFICAR DATOS DE USUARIO POR ID
+    @PutMapping("{id}")
+    public ResponseEntity<TaskDto> updateUser(@PathVariable("id") Long taskId, @RequestBody TaskDto updateTask){
+        TaskDto taskUpdated = taskService.updateTask(taskId, updateTask);
+        return ResponseEntity.ok(updateTask);
     }
 }

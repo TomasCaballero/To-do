@@ -17,14 +17,14 @@ public class UserController {
     private UserService userService;
 
 
-    // CONSTRUIR TODOS LOS USUARIOS REST API
+    // POST CREAR USUARIO
     @PostMapping
     public ResponseEntity<UserDto> createUser(@RequestBody UserDto userDto){
         UserDto savedUser = userService.createUser(userDto);
         return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
     }
 
-    // OBTENER USUARIO POR ID
+    // GET OBTENER USUARIO POR ID
     @GetMapping("{id}")
     public ResponseEntity<UserDto> getUserById(@PathVariable("id") Long userId){
         UserDto user = userService.getUserById(userId);
@@ -32,10 +32,17 @@ public class UserController {
     }
 
 
-    // GET ALL USERS
+    // GET OBTENER TODOS LOS USUARIOS
     @GetMapping
     public ResponseEntity<List<UserDto>> getAllUsers(){
         List<UserDto> users = userService.getAllUsers();
         return ResponseEntity.ok(users);
+    }
+
+    // POST MODIFICAR DATOS DE USUARIO POR ID
+    @PutMapping("{id}")
+    public ResponseEntity<UserDto> updateUser(@PathVariable("id") Long userId, @RequestBody UserDto updateUser){
+        UserDto userUpdated = userService.updateUser(userId, updateUser);
+        return ResponseEntity.ok(userUpdated);
     }
 }
